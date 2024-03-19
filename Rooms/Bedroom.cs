@@ -7,7 +7,7 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription() =>
 @"You are in your bedroom.
-The [door] in front of you leads to your living room.
+The [door] in front of you leads to your [living room].
 Your private [bathroom] is to your left.
 From your closet, you see the [attic].
 ";
@@ -20,6 +20,10 @@ From your closet, you see the [attic].
                     Console.WriteLine("You enter the bathroom.");
                     Game.Transition<Bathroom>();
                     break;
+                case "living room":
+                    {
+                        Console.WriteLine("You can't enter the living room right now... the door is locked!");
+                    }break;
                 case "door":
                     if (!AtticRoom.isKeyCollected)
                     {
@@ -28,7 +32,8 @@ From your closet, you see the [attic].
                     else
                     {
                         Console.WriteLine("You open the door with the key and leave your bedroom.");
-                        Game.Finish();
+                        Game.Transition<LivingRoom>();
+                        //Game.Finish(); //commented this out and made it so that the game only ends after you enter the living room and enter the input to end game.
                     }
                     break;
                 case "attic":
