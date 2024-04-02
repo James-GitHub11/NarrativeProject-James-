@@ -8,22 +8,31 @@ namespace NarrativeProject.Rooms
 {
     internal class LivingRoom : Room
     {
+        //internal static bool goneDownstairs = false;
         internal override string CreateDescription() =>
-@"You've made it to the living room!
-You've completed the game! If you wish to continue wandering, type 'bedroom'...
-Type anything else to end game.";
+@"You've open the door, gone downstairs and made it to the living room!
+You hear a loud noise coming from the furnace room.
+However, all the lights are off on the main floor...
+What's your next move: Follow the noises in the [furnace room]?
+Or return upstairs to the [bedroom]?";
 
 
         internal override void ReceiveChoice(string choice)
         {
-            if (choice == "bedroom")
+            switch (choice)
             {
-                Game.Transition<Bedroom>();
-            }
-            else
-            {
-                Game.Finish();
-            }
+                case "bedroom":
+                    {
+                        Game.Transition<Bedroom>();
+                    }break;
+                        
+                case "furnace room":
+                    {
+                        Game.Transition<FurnaceRoom>();
+                    }break;
+                    
+            }                 
+            
         }
     }
 }

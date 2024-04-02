@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NarrativeProject
 {
@@ -9,7 +10,13 @@ namespace NarrativeProject
         internal bool IsGameOver() => isFinished;
         static bool isFinished;
         static string nextRoom = "";
-
+        //Lines 13-18 are new
+        List<string> inventory = new List<string>();
+        string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
+        int n;
+        static bool flashlightInInventory = false;
+        static bool cloakInInventory = false;
+        static bool phoneInInventory = false;
         internal void Add(Room room)
         {
             rooms.Add(room);
@@ -46,6 +53,27 @@ namespace NarrativeProject
                     nextRoom = "";
                     currentRoom = room;
                     break;
+                }
+            }
+        }
+        //Additional Work (April 02, 2024)
+        internal void AddInventory(string[] collectableItem)
+        {
+            //int n;
+            inventory.Add(collectableItem[n]);
+        }
+        internal void CheckInventory()
+        {
+            if (inventory.Count == 0)
+            {
+                Console.WriteLine("Your inventory is empty... Try collecting items/tools to help in the game");
+            }
+            else
+            {
+                foreach (var collectableItem in inventory)
+                {
+                    Console.Write("Here is your current item inventory: ");
+                    Console.WriteLine($"{collectableItem}");
                 }
             }
         }
