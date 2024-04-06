@@ -7,9 +7,9 @@ namespace NarrativeProject.Rooms
         int counter = 0;
 
         internal override string CreateDescription() =>
-@"In your bathroom, the [bath] is filled with hot water.
-The [mirror] in front of you reflects your depressed face.
-You can return to your [bedroom].
+@"In the bathroom, the [bath] is filled with hot water.
+The [mirror] in front of you reflects your depressed and slightly bruised face.
+You can return to the [bedroom].
 ";
 
         internal override void ReceiveChoice(string choice)
@@ -26,18 +26,18 @@ You can return to your [bedroom].
                     {
                         if (counter >= 1)
                         {
-                            Console.WriteLine("You see the numbers 6969 written on the fog on your mirror.");
+                            Console.WriteLine("You see the numbers 6969 written on the fog on the mirror.");
                         }
                         else
                         {
-                            Console.WriteLine("You can't seem to make out the numbers written on the fog on your mirror. (try using the bath to reveal the foggy digits");
+                            Console.WriteLine("You can't seem to make out the numbers written on the fog on the mirror. (try using the bath to reveal the foggy digits");
                         }
                     }break;
                                       
                     
                 case "bedroom":
                     {
-                        Console.WriteLine("You return to your bedroom.");
+                        Console.WriteLine("You return to the bedroom.");
                         Game.Transition<Bedroom>();
                     }break;
                     

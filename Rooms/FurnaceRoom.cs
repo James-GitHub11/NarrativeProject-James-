@@ -7,7 +7,7 @@ namespace NarrativeProject.Rooms
         internal override string CreateDescription() =>
 @"In the furnace room, there are lots of wiring and machinery.
 Two codes are written down  with the code [].
-You can return to your [bedroom].
+You can return to the [bedroom].
 ";
 
         internal override void ReceiveChoice(string choice)

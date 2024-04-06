@@ -1,18 +1,32 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace NarrativeProject.Rooms
 {
     internal class Bedroom : Room
     {
         internal static bool goneDownstairs = false;
-        internal override string CreateDescription() =>
-@"You are in your bedroom.
-The [door] in front of you leads to your [living room].
-Your private [bathroom] is to your left.
-From your closet, you see the [attic].
-Don't forget to look around for tools, you might find a useful [item]!
+        internal override string CreateDescription()
+        {
+            if (!goneDownstairs)
+            {
+                return
+@"You are in the bedroom.
+The [door] in front of you leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
 ";
-
+            }
+            else
+            {
+                return
+@"You're back in the bedroom.
+The [door] in front of you leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
+Maybe you should look around for tools, you might find a useful [item]!";
+            }
+        }
         internal override void ReceiveChoice(string choice)
         {
             switch (choice)
@@ -32,7 +46,7 @@ Don't forget to look around for tools, you might find a useful [item]!
                     }
                     else
                     {
-                        Console.WriteLine("You open the door with the key and leave your bedroom.");
+                        Console.WriteLine("You open the door with the key and leave the bedroom.");
                         Game.Transition<LivingRoom>();
                         goneDownstairs = true; //
                         //Game.Finish(); //commented this out and made it so that the game only ends after you enter the living room and enter the input to end game.
@@ -45,15 +59,14 @@ Don't forget to look around for tools, you might find a useful [item]!
                         }
                         else
                         {
-                            Console.WriteLine("It's pretty dark downstairs, this flashlight might come in handy!");
-                            
-                            //Game.AddInventory(collectableItem);
+                            Console.WriteLine("It's pretty dark downstairs, this flashlight might come in handy!");                           
+                            //Game.AddInventory("flashlight");
                         }
                     }break;
                     
                 case "attic":
                     {
-                        Console.WriteLine("You go up and enter your attic.");
+                        Console.WriteLine("You go up and enter the attic.");
                         Game.Transition<AtticRoom>();                 
                     }break;
                 default:

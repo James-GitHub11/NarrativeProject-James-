@@ -12,8 +12,8 @@ namespace NarrativeProject
         static string nextRoom = "";
         //Lines 13-18 are new
         List<string> inventory = new List<string>();
-        string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
-        int n;
+        public string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
+        public int n;
         static bool flashlightInInventory = false;
         static bool cloakInInventory = false;
         static bool phoneInInventory = false;
@@ -57,10 +57,12 @@ namespace NarrativeProject
             }
         }
         //Additional Work (April 02, 2024)
-        internal void AddInventory(string[] collectableItem)
+        public void AddInventory(string collectableItem)
         {
             //int n;
-            inventory.Add(collectableItem[n]);
+            //string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
+            //inventory.Add(collectableItem[n]);
+            inventory.Add(collectableItem);
         }
         internal void CheckInventory()
         {
