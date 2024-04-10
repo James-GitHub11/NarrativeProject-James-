@@ -26,6 +26,8 @@ namespace NarrativeProject
 
             var game = new Game();
             game.Add(new Bedroom());
+            //var bedroom = new Bedroom();
+            //bedroom.game = game;
             game.Add(new Bathroom());
             game.Add(new AtticRoom());
             game.Add(new LivingRoom());
@@ -35,6 +37,10 @@ namespace NarrativeProject
             {
                 Console.WriteLine("--");
                 Console.WriteLine(game.CurrentRoomDescription);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("HINT: You can also check your [inventory]");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("--");
                 string choice = Console.ReadLine().ToLower() ?? "";
                 Console.Clear();
                 game.ReceiveChoice(choice);

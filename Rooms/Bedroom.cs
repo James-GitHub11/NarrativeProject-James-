@@ -6,27 +6,48 @@ namespace NarrativeProject.Rooms
     internal class Bedroom : Room
     {
         internal static bool goneDownstairs = false;
+        internal static bool flashlightAvailable = false;
+        //public Game game = null;
         internal override string CreateDescription()
         {
-            if (!goneDownstairs)
-            {
-                return
-@"You are in the bedroom.
-The [door] in front of you leads to the [living room].
-The private [bathroom] is to your left.
-From the closet, you see the [attic].
-";
-            }
-            else
+//            if (goneDownstairs == false)
+//            {
+//                return
+//@"You are in the bedroom.
+//The [door] in front of you leads to the [living room].
+//The private [bathroom] is to your left.
+//From the closet, you see the [attic].
+//";
+//            }
+            if (goneDownstairs == true && flashlightAvailable == false)
             {
                 return
 @"You're back in the bedroom.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
-Maybe you should look around for tools, you might find a useful [item]!";
+Maybe you should [search] around for tools, you might find a useful item!";
+            }
+            else if (goneDownstairs == true && flashlightAvailable == true)
+            {
+                return
+@"You're back in the bedroom.
+The [door] in front of you leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
+Pick up the [flashlight] and add it to your inventory";
+            }
+            else
+            {
+                    return
+@"You are in the bedroom.
+The [door] in front of you leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
+";
             }
         }
+        
         internal override void ReceiveChoice(string choice)
         {
             switch (choice)
@@ -51,17 +72,30 @@ Maybe you should look around for tools, you might find a useful [item]!";
                         goneDownstairs = true; //
                         //Game.Finish(); //commented this out and made it so that the game only ends after you enter the living room and enter the input to end game.
                     }break;
-                case "item":
+                case "search":
                     {
                         if (!goneDownstairs)
                         {
                             Console.WriteLine("Nothing useful to you in this room, for the moment...");
+                            Game.Transition<Bedroom>();
                         }
                         else
                         {
-                            Console.WriteLine("It's pretty dark downstairs, this flashlight might come in handy!");                           
-                            //Game.AddInventory("flashlight");
+                            Console.WriteLine("It's pretty dark downstairs, this flashlight might come in handy!"); //this will reveal the item, but you haven't inventoried it yet.
+                            //game.AddInventory(choice);
+                            flashlightAvailable = true; //bool to notify when the flashlight has been found 
+                            Game.Transition<Bedroom>(); //when found, the game will return to the bedroom (but you'll have a new input option for "flashlight", when you type that, it will add to inventory.
                         }
+                    }break;
+                case "flashlight":
+                    {
+                        Game.AddInventory(choice); //once you discover the flashlight, this case option will appear in the altered roomDescription (type "Flashlight" as your "choice" and it will add to inventory.
+                        Game.Transition<Bedroom>();
+                    }
+                    break;
+                case "inventory":
+                    {
+                        Game.CheckInventory();
                     }break;
                     
                 case "attic":

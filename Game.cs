@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace NarrativeProject
 {
+    public enum CollectableItems
+    {
+        Key,
+        Flashlight,
+        StealthCloak,
+        Phone
+    }
     internal class Game
     {
         List<Room> rooms = new List<Room>();
@@ -11,8 +18,8 @@ namespace NarrativeProject
         static bool isFinished;
         static string nextRoom = "";
         //Lines 13-18 are new
-        List<string> inventory = new List<string>();
-        public string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
+        public static List<CollectableItems> inventory = new List<CollectableItems>();
+        //static List<string> collectableItems = new List<string> { "key", "flashlight", "stealth cloak", "phone" };
         public int n;
         static bool flashlightInInventory = false;
         static bool cloakInInventory = false;
@@ -57,14 +64,29 @@ namespace NarrativeProject
             }
         }
         //Additional Work (April 02, 2024)
-        public void AddInventory(string collectableItem)
+        public static void AddInventory(string choice)
         {
-            //int n;
+            //int n
             //string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
             //inventory.Add(collectableItem[n]);
-            inventory.Add(collectableItem);
+            if (choice == "Flashlight")
+            {
+                inventory.Add(CollectableItems.Flashlight);
+            }
+            if (choice == "Key")
+            {
+                inventory.Add(CollectableItems.Key);
+            }
+            if (choice == "StealthCloak")
+            {
+                inventory.Add(CollectableItems.StealthCloak);
+            }
+            if (choice == "Phone")
+            {
+                inventory.Add(CollectableItems.Phone);
+            }
         }
-        internal void CheckInventory()
+        public static void CheckInventory()
         {
             if (inventory.Count == 0)
             {
@@ -72,10 +94,10 @@ namespace NarrativeProject
             }
             else
             {
-                foreach (var collectableItem in inventory)
+                foreach (var CollectableItems in inventory)
                 {
                     Console.Write("Here is your current item inventory: ");
-                    Console.WriteLine($"{collectableItem}");
+                    Console.WriteLine($"{CollectableItems}");
                 }
             }
         }
