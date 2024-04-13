@@ -69,7 +69,7 @@ namespace NarrativeProject
             //int n
             //string[] collectableItem = { "key", "flashlight", "stealth cloak", "phone" };
             //inventory.Add(collectableItem[n]);
-            if (choice == "Flashlight")
+            if (choice == "flashlight")
             {
                 inventory.Add(CollectableItems.Flashlight);
             }
