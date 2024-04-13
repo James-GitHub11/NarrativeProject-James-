@@ -7,6 +7,7 @@ namespace NarrativeProject.Rooms
     {
         internal static bool goneDownstairs = false;
         internal static bool flashlightAvailable = false;
+        internal static bool isFlashLightInventoried = false;
         //public Game game = null;
         internal override string CreateDescription()
         {
@@ -28,7 +29,7 @@ The private [bathroom] is to your left.
 From the closet, you see the [attic].
 Maybe you should [search] around for tools, you might find a useful item!";
             }
-            else if (goneDownstairs == true && flashlightAvailable == true)
+            if (goneDownstairs == true && flashlightAvailable == true && isFlashLightInventoried == false)
             {
                 return
 @"You're back in the bedroom.
@@ -36,6 +37,15 @@ The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
 Pick up the [flashlight] and add it to your inventory";
+            }
+            if (goneDownstairs == true && flashlightAvailable == true && isFlashLightInventoried == true)
+            {
+                return
+@"You're back in the bedroom.
+The [door] in front of you leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
+(There are no more items to find here.)";
             }
             else
             {
@@ -68,8 +78,9 @@ From the closet, you see the [attic].
                     else
                     {
                         Console.WriteLine("You open the door with the key and leave the bedroom.");
+                        goneDownstairs = true;
                         Game.Transition<LivingRoom>();
-                        goneDownstairs = true; //
+                        
                         //Game.Finish(); //commented this out and made it so that the game only ends after you enter the living room and enter the input to end game.
                     }break;
                 case "search":
@@ -90,6 +101,8 @@ From the closet, you see the [attic].
                 case "flashlight":
                     {
                         Game.AddInventory(choice); //once you discover the flashlight, this case option will appear in the altered roomDescription (type "Flashlight" as your "choice" and it will add to inventory.
+                        isFlashLightInventoried = true;
+                        //flashlightAvailable = false;
                         Game.Transition<Bedroom>();
                     }
                     break;

@@ -24,6 +24,7 @@ namespace NarrativeProject
         static bool flashlightInInventory = false;
         static bool cloakInInventory = false;
         static bool phoneInInventory = false;
+
         internal void Add(Room room)
         {
             rooms.Add(room);

@@ -28,3 +28,9 @@ Since the game happens in someone else's house, I changed all possessive adjecti
 
 -I changed the bedroom currentDescription function to include and 'if-statement' to return a hint in the output text, if they've gone downstairs, to check around for items that may be useful.
 -I've decided I'd store all the items in various room and objects, but have most of them only reveal themselves as an option only once you've explored a certain room and return back to the room said object is in. 
+
+April 13, 2024:
+-Added lightswitch
+-Changed living room description
+-Implemented a bool for if the furnace is fixed --> so that the room will still be described as cold (note: i'm thinking of deducting HP for each choice made prior to turning on the heat in furnace room)
+-
