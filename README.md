@@ -15,7 +15,7 @@ April 06, 2024:
 Story Narrative Blueprint:
 {
 The game will be a mystery kidnapping case, with the goal and style of play being similar to an escape room... the player must make it out alive.
-The player will have been kidnapped by a stranger met at the bar who claims to have found her bruised, bloodied and unconcious, so he took her to his home to rest.
+The player will have been kidnapped by a stranger met at the bar who claims to have found him/her bruised, bloodied and unconcious, so he took him/her to his home to rest.
 The player will wake up in the bedroom to start the game, with a note from the kidnapper explaining the context of the story.
 The player's narrated dialogue would say something like "This does not feel right, but I guess... surely... if this supposed Good Samaritan wanted to harm me, he coud've done so in my sleep?'
 The game then actually begins, with the console text suggesting the player checks the note on the nightstand. Saying the mystery man went out to get some advils and ice and the convenient store, and if the player wanted to take a bath to freshen up they're welcome to.
@@ -33,4 +33,14 @@ April 13, 2024:
 -Added lightswitch
 -Changed living room description
 -Implemented a bool for if the furnace is fixed --> so that the room will still be described as cold (note: i'm thinking of deducting HP for each choice made prior to turning on the heat in furnace room)
--
+-Added more variety in the narrative output depending on various circumstances (different console prompts when returning to a specific room before/after interacting with another object)
+-Added a new Room class --> ElectricalRoom 
+
+April 14, 2024:
+-Changed flow of the game (how you transition between rooms and displaying different texts depending on the player's choice')
+-Front door was added essentially only as another hint of the game's objective... to get out of the house before you're too hurt or time runs out.
+-Expanded on my implementation of the ElectricalRoom
+-Added various scenarios where a player can potentially lose HP --> just need to implement an actual HP system.
+-Edited the LivingRoom scenarios, and expanding on the players' options (the living room will be the central area/environment of the game.. with most events occuring there)
+-Things to add later --> HP system, a challenge or hint the player must solve/find in order to turn on the power in electrical room
+		--> Need to add the photos for the player to also get a visual while playing to become more immmersed.

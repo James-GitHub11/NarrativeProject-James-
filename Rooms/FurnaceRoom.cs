@@ -7,7 +7,7 @@ namespace NarrativeProject.Rooms
         internal static bool isFurnaceFixed = false;
         internal override string CreateDescription()
         {
-            if (LivingRoom.electricityTurnedOn == true && isFurnaceFixed == false)
+            if (ElectricalRoom.electricityTurnedOn == true && isFurnaceFixed == false)
             {
                 return
 @"In the furnace room, there are lots of machinery and wiring all over.
@@ -17,7 +17,7 @@ What's your next move?
 2) Try plugging the [black wire] into the furnace?
 3) Try plugging the [red wire] into the furnace?";
             }
-            if (LivingRoom.electricityTurnedOn == true && isFurnaceFixed == true)
+            if (ElectricalRoom.electricityTurnedOn == true && isFurnaceFixed == true)
             {
                 return
 @"You're in the furnace room. The dripping has finally stopped. 
@@ -51,18 +51,35 @@ What's your next move?
                     }break;
                 case "red wire":
                     {
-                        if (LivingRoom.electricityTurnedOn == false)
+                        if (ElectricalRoom.electricityTurnedOn == false)
                         {
                             Console.WriteLine("Darn. I forgot the power is out on this floor. This won't work");
                             Game.Transition<FurnaceRoom>();
                         }
-                        else if (LivingRoom.electricityTurnedOn == true)
+                        else if (ElectricalRoom.electricityTurnedOn == true)
                         {
                             Console.WriteLine("You plug in the red wire and... it works! The furnace is finally on. Maybe I should check to see if it's working in the living room.");
                             isFurnaceFixed = true;
                             Game.Transition<FurnaceRoom>();
                         }
                     }break;
+                case "black wire":
+                    {
+                        if (ElectricalRoom.electricityTurnedOn == false)
+                        {
+                            Console.WriteLine("'Darn. I forgot the power is out on this floor. This won't work!'");
+                            Game.Transition<FurnaceRoom>();
+                        }
+                        else if (ElectricalRoom.electricityTurnedOn == true)
+                        {
+                            Console.WriteLine("You try plugging in the black wire, but it is the wrong wire. An electric shock hits your body, with the pain paralyzing you for a minute.\nYou get back up, in disbelief of what just happened. 'Is this homeowner rigging traps? Or just a sociopath with no concern for safety?!'");
+                            //HP -= 10 
+                            //Will implement a loss of health points here when the user chooses the black wire and get's shocked.
+                            Game.Transition<FurnaceRoom>();
+                        }
+                            
+                    }
+                    break;
             }
         }
     }
