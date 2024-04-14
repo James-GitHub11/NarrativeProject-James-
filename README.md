@@ -29,14 +29,14 @@ Since the game happens in someone else's house, I changed all possessive adjecti
 -I changed the bedroom currentDescription function to include and 'if-statement' to return a hint in the output text, if they've gone downstairs, to check around for items that may be useful.
 -I've decided I'd store all the items in various room and objects, but have most of them only reveal themselves as an option only once you've explored a certain room and return back to the room said object is in. 
 
-April 13, 2024:
+April 13, 2024 (Round 4):
 -Added lightswitch
 -Changed living room description
 -Implemented a bool for if the furnace is fixed --> so that the room will still be described as cold (note: i'm thinking of deducting HP for each choice made prior to turning on the heat in furnace room)
 -Added more variety in the narrative output depending on various circumstances (different console prompts when returning to a specific room before/after interacting with another object)
 -Added a new Room class --> ElectricalRoom 
 
-April 14, 2024:
+April 14, 2024 (Round 5):
 -Changed flow of the game (how you transition between rooms and displaying different texts depending on the player's choice')
 -Front door was added essentially only as another hint of the game's objective... to get out of the house before you're too hurt or time runs out.
 -Expanded on my implementation of the ElectricalRoom
