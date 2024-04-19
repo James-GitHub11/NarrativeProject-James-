@@ -110,7 +110,22 @@ What's your next move?
                         
                 case "furnace room":
                     {
-                        Game.Transition<FurnaceRoom>();
+                        if (performedLivingRoomScan == false)
+                        {
+                            Console.WriteLine("Attempting to be careful, you fumble through the dark room taking long steps to avoid any unseen objects.\nHowever, after only making it a few steps, you feel a sudden surge of pain rushing to your feet." +
+                                "\nYou've stepped on a long nail that was sticking out of the floorboard and your foot is badly wounded.");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("You're going to bleed out if you don't tend to your wounds ASAP!");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine(" (Hint: search the house for a bandages or something to wrap your wound)");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Game.Transition<Bedroom>();
+                        }
+                        else if (performedLivingRoomScan == true)
+                        {
+                            Game.Transition<FurnaceRoom>();
+                        }
+                        
                     }break;
                 case "light switch":
                     {

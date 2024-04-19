@@ -72,40 +72,49 @@ From the closet, you see the [attic].
                     Console.WriteLine("You enter the bathroom.");
                     Game.Transition<Bathroom>();
                     break;
+
                 case "living room":
                     {
                         Console.WriteLine("To enter the living room, try the door...");
                     }break;
+
                 case "door":
-                    if (!AtticRoom.isKeyCollected)
-                    {
-                        Console.WriteLine("The door is locked.");
-                    }
-                    if (goneDownstairs == true)
-                    {
-                        Game.Transition<LivingRoom>();
-                    }
-                    else
+                    if (AtticRoom.isKeyCollected == true)
                     {
                         Console.WriteLine("'It looks like a there's a keyslot on this door.'");
                         doorReadyToOpen = true;
                         Game.Transition<Bedroom>();
                     }
+                    if (goneDownstairs == true)
+                    {
+                        Game.Transition<LivingRoom>();
+                    }
+                    else if (AtticRoom.isKeyCollected == false)
+                    {
+                        Console.WriteLine("The door is locked.");
+                        Game.Transition<Bedroom>();
+                    }
                     break;
                 case "key":
                     {
-                        if (ElectricalRoom.electricityTurnedOn == false)
+                        if (ElectricalRoom.electricityTurnedOn == false && AtticRoom.isKeyCollected == true)
                         {
                             Console.WriteLine("The key fits. You walk down a dark candle-lit hallway.\nWith your eyes still adjusting to the dark, you barely manage to locate the stairs leading to the living room.");
+                            goneDownstairs = true;
+                            Game.Transition<LivingRoom>();
                         }
-                        else
+                        if (ElectricalRoom.electricityTurnedOn == true && AtticRoom.isKeyCollected == true)
                         {
                             Console.WriteLine("The key fits. You walk through the creepy hallway, with its light flickering,taking the stairs down to the living room.");
+                            Game.Transition<LivingRoom>();
                         }
-                        goneDownstairs = true;
-                        Game.Transition<LivingRoom>();
-
+                        else if (AtticRoom.isKeyCollected == false)
+                        {
+                            Console.WriteLine("Invalid command.");
+                            Game.Transition<Bedroom>();
+                        }
                     }break;
+
                 case "search":
                     {
                         if (!goneDownstairs)
@@ -121,6 +130,7 @@ From the closet, you see the [attic].
                             Game.Transition<Bedroom>(); //when found, the game will return to the bedroom (but you'll have a new input option for "flashlight", when you type that, it will add to inventory.
                         }
                     }break;
+
                 case "flashlight":
                     {
                         Game.AddInventory(choice); //once you discover the flashlight, this case option will appear in the altered roomDescription (type "Flashlight" as your "choice" and it will add to inventory.
@@ -129,6 +139,7 @@ From the closet, you see the [attic].
                         Game.Transition<Bedroom>();
                     }
                     break;
+
                 case "inventory":
                     {
                         Game.CheckInventory();
@@ -139,6 +150,7 @@ From the closet, you see the [attic].
                         Console.WriteLine("You go up and enter the attic.");
                         Game.Transition<AtticRoom>();                 
                     }break;
+
                 default:
                     {
                         Console.WriteLine("Invalid command.");

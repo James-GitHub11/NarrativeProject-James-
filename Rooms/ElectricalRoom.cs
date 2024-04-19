@@ -17,7 +17,7 @@ namespace NarrativeProject.Rooms
         internal static int response;
         internal override string CreateDescription()
         {
-            if (electricityTurnedOn == true)
+            if (electricityTurnedOn == true && alarmTrigerred == false) //rdescription for when the player has successfully turned the power on,
             {
                 return
 @"There's nothing left to accomplish here. No new useful items here neither.

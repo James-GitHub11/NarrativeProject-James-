@@ -4,7 +4,7 @@ namespace NarrativeProject.Rooms
 {
     internal class AtticRoom : Room
     {
-        internal static bool isKeyCollected;
+        internal static bool isKeyCollected = false;
 
         internal override string CreateDescription() =>
 @"In the attic, it's dark and cold.
