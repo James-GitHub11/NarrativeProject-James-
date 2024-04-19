@@ -44,3 +44,10 @@ April 14, 2024 (Round 5):
 -Edited the LivingRoom scenarios, and expanding on the players' options (the living room will be the central area/environment of the game.. with most events occuring there)
 -Things to add later --> HP system, a challenge or hint the player must solve/find in order to turn on the power in electrical room
 		--> Need to add the photos for the player to also get a visual while playing to become more immmersed.
+
+April 16, 2024 (Round 6):
+-Tons of changes this time around --> mainly involving ElectricalRoom, FurnaceRoom, and LivingRoom.
+-Reconfigured the transition and gameflow for these rooms and added new game features inside these rooms.
+- Re-worded a bunch of the narrative texts
+- Implemented another way to lose health over time --> the alarm (HP will be lost based on time elapsed before turning it off, losing roughly [3 x ElapsedTime] worth of health)
+		--> Note: thinking of adding a maximum limit on the alarm --> if the player keeps the alarm on for too long so that they can explore with the power on, then they'll lose the game.

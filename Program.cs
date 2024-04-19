@@ -1,5 +1,6 @@
 ﻿using NarrativeProject.Rooms;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -16,6 +17,7 @@ namespace NarrativeProject
     internal class Program
     {
         static SaveData saveData;
+        static Stopwatch stopwatch = new Stopwatch();
         static void Main(string[] args)
         {
             const string SaveFile = "Save.txt";
@@ -32,6 +34,8 @@ namespace NarrativeProject
             game.Add(new AtticRoom());
             game.Add(new LivingRoom());
             game.Add(new FurnaceRoom());
+            game.Add(new ElectricalRoom());
+            //stopwatch.Start();
 
             while (!game.IsGameOver())
             {
@@ -41,6 +45,7 @@ namespace NarrativeProject
                 Console.WriteLine("HINT: You can also check your [inventory]");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("--");
+                //stopwatch.Elapsed(h{ }, );
                 string choice = Console.ReadLine().ToLower() ?? "";
                 Console.Clear();
                 game.ReceiveChoice(choice);

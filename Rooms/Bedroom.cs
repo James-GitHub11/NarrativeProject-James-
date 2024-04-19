@@ -8,6 +8,7 @@ namespace NarrativeProject.Rooms
         internal static bool goneDownstairs = false;
         internal static bool flashlightAvailable = false;
         internal static bool isFlashLightInventoried = false;
+        internal static bool doorReadyToOpen = false;
         //public Game game = null;
         internal override string CreateDescription()
         {
@@ -20,10 +21,15 @@ namespace NarrativeProject.Rooms
 //From the closet, you see the [attic].
 //";
 //            }
+            if (doorReadyToOpen == true && goneDownstairs == false)
+            {
+                return
+@"Try the [key] you found.";
+            }
             if (goneDownstairs == true && flashlightAvailable == false)
             {
                 return
-@"You're back in the bedroom.
+@"You're in the bedroom.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -32,7 +38,7 @@ Maybe you should [search] around for tools, you might find a useful item!";
             if (goneDownstairs == true && flashlightAvailable == true && isFlashLightInventoried == false)
             {
                 return
-@"You're back in the bedroom.
+@"You're in the bedroom.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -41,7 +47,7 @@ Pick up the [flashlight] and add it to your inventory";
             if (goneDownstairs == true && flashlightAvailable == true && isFlashLightInventoried == true)
             {
                 return
-@"You're back in the bedroom.
+@"You're in the bedroom.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -75,13 +81,30 @@ From the closet, you see the [attic].
                     {
                         Console.WriteLine("The door is locked.");
                     }
+                    if (goneDownstairs == true)
+                    {
+                        Game.Transition<LivingRoom>();
+                    }
                     else
                     {
-                        Console.WriteLine("You open the door with the key and leave the bedroom.");
+                        Console.WriteLine("'It looks like a there's a keyslot on this door.'");
+                        doorReadyToOpen = true;
+                        Game.Transition<Bedroom>();
+                    }
+                    break;
+                case "key":
+                    {
+                        if (ElectricalRoom.electricityTurnedOn == false)
+                        {
+                            Console.WriteLine("The key fits. You walk down a dark candle-lit hallway.\nWith your eyes still adjusting to the dark, you barely manage to locate the stairs leading to the living room.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("The key fits. You walk through the creepy hallway, with its light flickering,taking the stairs down to the living room.");
+                        }
                         goneDownstairs = true;
                         Game.Transition<LivingRoom>();
-                        
-                        //Game.Finish(); //commented this out and made it so that the game only ends after you enter the living room and enter the input to end game.
+
                     }break;
                 case "search":
                     {
