@@ -14,13 +14,27 @@ namespace NarrativeProject.Rooms
         internal static bool performedLivingRoomScan = false;
         internal override string CreateDescription()
         {
-            if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true)
+//            if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true && ElectricalRoom.alarmTrigerred == false)
+//            {
+//                return
+//@"Checkpoint achieved!
+//The room seems to be getting warmer now and you're no longer shivering.
+//With the cold no longer a distraction, the electricity running, and alarm turned off, you can finally focus all your efforts on escape!";
+//            }
+
+            if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true && ElectricalRoom.alarmTrigerred == true)
             {
                 return
-@"Checkpoint achieved!
+@"You've succesfully fixed the furnace for now.
 The room seems to be getting warmer now and you're no longer shivering.
-With the cold no longer a distraction, and the power turned on, you can focus all your effort on escape!";
+However, with the alarm still going off in the house, your window for escape is getting smaller!
+What's your next move?
+1) Return to the [electrical room]?
+2) Try the [front door]?
+3) Return upstairs to the [bedroom]?
+4) ";
             }
+
             if (Bedroom.isFlashLightInventoried == true && FurnaceRoom.isFurnaceFixed == false && performedLivingRoomScan == false)
             {
                 return
@@ -41,8 +55,7 @@ What's your next move?
                 return
 @"You're in the living room, still freezing cold and trembling with angst and fear.
 Down another small hallway, you can see what appears to be the front door of the house.
-Now, you can also properly see the doorway that leads to the furnace room.
-Your flashlight reveals another mysterious door, next to the furnace room.
+Your flashlight reveals 2 doorways.. the one leading the furnace room, and a mystery door next to it.
 
 What's your next move?
 1) Head towards the [furnace room]?
@@ -51,7 +64,7 @@ What's your next move?
 4) Try opening the [mystery] door?";
             }
 
-            if (ElectricalRoom.performedElectricalRoomScan == true && FurnaceRoom.isFurnaceFixed == false && performedLivingRoomScan == true)
+            if (ElectricalRoom.performedElectricalRoomScan == true && FurnaceRoom.isFurnaceFixed == false && ElectricalRoom.electricityTurnedOn == false)
             {
                 return
 @"You're in the living room, still freezing cold and trembling with angst and fear.
@@ -70,7 +83,7 @@ What's your next move?
             {
                 return
 @"You're in the living room.
-With the electricity running and lights now turned on, you start to notice more objects that you previously didn't see with your flashlight, in the living room.
+Now that the power is on, you can finally see everything in the room.
 Specifically, you notice a notepad on the coffee table.
 However, you're still shivering from the cold.
 
@@ -119,14 +132,14 @@ What's your next move?
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(" (Hint: search the house for a bandages or something to wrap your wound)");
                             Console.ForegroundColor = ConsoleColor.White;
-                            Game.Transition<Bedroom>();
+                            Game.Transition<LivingRoom>();
                         }
                         else if (performedLivingRoomScan == true)
                         {
                             Game.Transition<FurnaceRoom>();
-                        }
-                        
+                        }  
                     }break;
+
                 case "light switch":
                     {
                         if (ElectricalRoom.electricityTurnedOn == false)
@@ -140,30 +153,38 @@ What's your next move?
                             Game.Transition<LivingRoom>();
                         }
                     }break;
+
                 case "mystery":
                     {
                         Console.WriteLine("You open the mysterious door and take a step into the room.");
                         Game.Transition<ElectricalRoom>();
                         //will lead to the electric room
                     }break;
+
                 case "electrical room":
                     {
                         Game.Transition<ElectricalRoom>();
                     }break;
+
                 case "door 2:":
                     {
                         //will lead to the garage
                     }break;
+
                 case "notepad":
                     {
+                        Console.WriteLine("The notebook has a hand-drawn sketch of a roulette wheel with the number 11 circled,\nand a quote saying 'AlWAYS bet on red.");
                         //if notepad is selected, it will open up an image of the notepad with a graphic of a roulette table and the hint to always bet on red.
+                        Game.Transition<LivingRoom>();
                     }break;
+
                 case "scan":
                     {
                         Console.WriteLine("You turn your flashlight on, scanning your surroundings for an exit or anything useful to you.\nThe faint light of your flashlight reveals a few new things.");
                         performedLivingRoomScan = true;
                         Game.Transition<LivingRoom>();
                     }break;
+
                 case "front door":
                     {
                         Console.WriteLine("You turn the lock and try opening the door, but it won't budge...");
@@ -171,6 +192,14 @@ What's your next move?
                         Console.WriteLine("'Either way, this is seriously starting to scare me. I need to find another way out...'");
                         Game.Transition<LivingRoom>();
                     }break;
+
+                case "inventory":
+                    {
+                        Game.CheckInventory();
+                        Game.Transition<ElectricalRoom>();
+                    }
+                    break;
+
                 default:
                     {
                         Console.WriteLine("Invalid command.");

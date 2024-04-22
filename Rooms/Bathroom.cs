@@ -18,28 +18,36 @@ You can return to the [bedroom].
             {
                 case "bath":
                     {
-                        Console.WriteLine("You relax in the bath.");
+                        Console.WriteLine("You relax in the bath, and regain a bit of your energy.");
+                        Game.hp += 100;
                         counter++;
                     } break;
-                   
+                    
                 case "mirror":
                     {
                         if (counter >= 1)
                         {
-                            Console.WriteLine("You see the numbers 6969 written on the fog on the mirror.");
+                            Console.WriteLine("The fog from the bath reveals the numbers '6969', written on the mirror with greasy fingerprints.");
                         }
                         else
                         {
                             Console.WriteLine("You can't seem to make out the numbers written on the fog on the mirror. (try using the bath to reveal the foggy digits");
                         }
-                    }break;
-                                      
-                    
+                    } break;
+
+
                 case "bedroom":
                     {
                         Console.WriteLine("You return to the bedroom.");
                         Game.Transition<Bedroom>();
-                    }break;
+                    } break;
+
+                case "inventory":
+                    {
+                        Game.CheckInventory();
+                        Game.Transition<Bathroom>();
+                    }
+                    break;
                     
                     
                 default:

@@ -51,3 +51,17 @@ April 16, 2024 (Round 6):
 - Re-worded a bunch of the narrative texts
 - Implemented another way to lose health over time --> the alarm (HP will be lost based on time elapsed before turning it off, losing roughly [3 x ElapsedTime] worth of health)
 		--> Note: thinking of adding a maximum limit on the alarm --> if the player keeps the alarm on for too long so that they can explore with the power on, then they'll lose the game.
+
+April 20, 2024 (Round 7):
+-Still need to finalize all the rooms, add GarageRoom and the garageDoor.
+-Need to change my game items once things are finalized
+-I previously had it so that the key's behavior is determined by a boolean "isKeyCollected" --> added the code for the key to actually go into inventory as a game item.
+-Need to add "inventory" option to each room's switch case --> to be able to check your inventory at any time.
+
+April 21, 2024 (Round 8):
+-Added key to inventory system
+-Added a checkpoint for once you've managed to turn on the power and fix the furnace, without keeping the alarm on.
+-In electricalRoom --> you can turn on the power, leave the room, and go fix the furnace, while the alarm is still going... 
+					--> so you'll begin losing time/health quickly from leaving the alarm on, but you'll also stop losing time/health from the cold.
+	--> if the user wants to reach the main checkpoint of the game (when it switches from exploration to escape mode), he'll need to figure out the switch that turns off the alarm.
+-Began attempts to implement the timer/hp system... still need to figure how it will fit into the game.

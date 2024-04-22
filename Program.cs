@@ -17,7 +17,8 @@ namespace NarrativeProject
     internal class Program
     {
         static SaveData saveData;
-        static Stopwatch stopwatch = new Stopwatch();
+        //static Stopwatch stopwatch = new Stopwatch();
+        //static int hp = 1000;
         static void Main(string[] args)
         {
             const string SaveFile = "Save.txt";
@@ -25,7 +26,6 @@ namespace NarrativeProject
             {
                 File.CreateText(SaveFile);
             }
-
             var game = new Game();
             game.Add(new Bedroom());
             //var bedroom = new Bedroom();
@@ -35,20 +35,48 @@ namespace NarrativeProject
             game.Add(new LivingRoom());
             game.Add(new FurnaceRoom());
             game.Add(new ElectricalRoom());
+            Stopwatch alarmTimer = new Stopwatch();
+            bool isAlarmTimerStarted = false;
             //stopwatch.Start();
 
             while (!game.IsGameOver())
             {
-                Console.WriteLine("--");
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine($"Player HP: {Game.hp}");
                 Console.WriteLine(game.CurrentRoomDescription);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("HINT: You can also check your [inventory]");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("--");
+                Console.WriteLine("--------------------------------");
                 //stopwatch.Elapsed(h{ }, );
                 string choice = Console.ReadLine().ToLower() ?? "";
+                if (choice == "switches" && isAlarmTimerStarted == false)
+                {
+                    alarmTimer.Reset();
+                    alarmTimer.Start();
+                    isAlarmTimerStarted = true;
+                }
+                if (choice == "off all" || ElectricalRoom.response == 11)
+                {
+                    alarmTimer.Stop();
+                    //alarmTimer.Reset();
+                    isAlarmTimerStarted = false;
+                }
+                if (isAlarmTimerStarted == true)
+                {
+                    Game.hp -= (int)alarmTimer.Elapsed.TotalSeconds;
+                }
+                
                 Console.Clear();
                 game.ReceiveChoice(choice);
+                //if (ElectricalRoom.alarmTrigerred == true && ElectricalRoom.isTimerStarted == false)
+                //{
+                //    alarmTimer.Start();
+                //}
+                //while (ElectricalRoom.alarmTrigerred == true)
+                //{
+                //    Game.hp -= alarmTimer.Elapsed.Seconds;
+                //}
             }
 
             Console.WriteLine("END");

@@ -65,8 +65,21 @@ What's your next move?
             {
                 case "living room":
                     {
-                        Game.Transition<LivingRoom>();
+                        if (alarmTrigerred == false && electricityTurnedOn == true)
+                        {
+                            Console.WriteLine("Checkpoint achieved!\nThe room seems to be getting warmer now and you're no longer shivering.\nWith the cold no longer a distraction, the electricity running, and alarm turned off, you can finally focus all your efforts on escape!");
+                            Game.Transition<LivingRoom>(); //will have to be LivingRoom2 actually once i make that room
+                        }
+                        else if (alarmTrigerred == true && electricityTurnedOn == true)
+                        {
+                            Game.Transition<LivingRoom>();
+                        }
+                        else
+                        {
+                            Game.Transition<LivingRoom>();
+                        }
                     }break;
+
                 case "scan":
                     {
                         performedElectricalRoomScan = true;
@@ -74,23 +87,30 @@ What's your next move?
                         Console.WriteLine("You spot a bunch of mouse traps laid out on the floor in front of you, which you carefully move out of your path.");
                         Game.Transition<ElectricalRoom>();
                     }break;
+
                 case "explore":
                     {
                         Console.WriteLine("You take a few steps forward, then... 'OUCH!!'");
                         Console.WriteLine("You stepped on a mouse-trap and cut your toe badly.");
                         Game.Transition<ElectricalRoom>();
                     }break;
+
                 case "switches":
                     {
-                        Console.WriteLine("You flip all the switches. Finally all the power circuits are working in the house, including the home security system.\nThe house-alarm immediately goes off, blaring as loud as ever.");
+                        Console.WriteLine("You flip all the switches. Finally the power is running all throughout the house.\nHowever... the house-alarm is immediately triggered, blaring as loud as ever.");
                         alarmTrigerred = true;
+                        electricityTurnedOn = true;
                         Game.Transition<ElectricalRoom>();
                     }break;
+
                 case "off all":
                     {
+                        Console.WriteLine("The alarm stops.");
                         alarmTrigerred = false;
+                        electricityTurnedOn = false;
                         Game.Transition<ElectricalRoom>();
                     }break;
+
                 case "#":
                     {
                         Console.Write("Enter the 1 or 2 digit number that corresponds to the alarm system: ");
@@ -115,6 +135,13 @@ What's your next move?
 
                         }
                     }break;
+
+                case "inventory":
+                    {
+                        Game.CheckInventory();
+                        Game.Transition<ElectricalRoom>();
+                    }break;
+                    
                 default:
                     {
                         Console.WriteLine("Invalid command.");

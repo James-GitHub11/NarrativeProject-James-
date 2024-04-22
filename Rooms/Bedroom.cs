@@ -79,7 +79,7 @@ From the closet, you see the [attic].
                     }break;
 
                 case "door":
-                    if (AtticRoom.isKeyCollected == true)
+                    if (AtticRoom.isKeyCollected == true && goneDownstairs == false)
                     {
                         Console.WriteLine("'It looks like a there's a keyslot on this door.'");
                         doorReadyToOpen = true;
@@ -105,7 +105,7 @@ From the closet, you see the [attic].
                         }
                         if (ElectricalRoom.electricityTurnedOn == true && AtticRoom.isKeyCollected == true)
                         {
-                            Console.WriteLine("The key fits. You walk through the creepy hallway, with its light flickering,taking the stairs down to the living room.");
+                            Console.WriteLine("The key fits. You walk through the creepy hallway, with its lights flickering, taking the stairs down to the living room.");
                             Game.Transition<LivingRoom>();
                         }
                         else if (AtticRoom.isKeyCollected == false)
@@ -143,6 +143,7 @@ From the closet, you see the [attic].
                 case "inventory":
                     {
                         Game.CheckInventory();
+                        Game.Transition<Bedroom>();
                     }break;
                     
                 case "attic":

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using NarrativeProject.Rooms;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net;
 
 namespace NarrativeProject
 {
@@ -7,7 +10,7 @@ namespace NarrativeProject
     {
         Key,
         Flashlight,
-        StealthCloak,
+        Bandages,
         Phone
     }
     internal class Game
@@ -17,13 +20,12 @@ namespace NarrativeProject
         internal bool IsGameOver() => isFinished;
         static bool isFinished;
         static string nextRoom = "";
-        //Lines 13-18 are new
         public static List<CollectableItems> inventory = new List<CollectableItems>();
-        //static List<string> collectableItems = new List<string> { "key", "flashlight", "stealth cloak", "phone" };
-        public int n;
-        static bool flashlightInInventory = false;
-        static bool cloakInInventory = false;
-        static bool phoneInInventory = false;
+        public static int hp = 1000;
+        //public int n;
+        //static bool flashlightInInventory = false;
+        //static bool cloakInInventory = false;
+        //static bool phoneInInventory = false;
 
         internal void Add(Room room)
         {
@@ -74,15 +76,15 @@ namespace NarrativeProject
             {
                 inventory.Add(CollectableItems.Flashlight);
             }
-            if (choice == "Key")
+            if (choice == "key")
             {
                 inventory.Add(CollectableItems.Key);
             }
-            if (choice == "StealthCloak")
+            if (choice == "bandages")
             {
-                inventory.Add(CollectableItems.StealthCloak);
+                inventory.Add(CollectableItems.Bandages);
             }
-            if (choice == "Phone")
+            if (choice == "phone")
             {
                 inventory.Add(CollectableItems.Phone);
             }
@@ -91,7 +93,7 @@ namespace NarrativeProject
         {
             if (inventory.Count == 0)
             {
-                Console.WriteLine("Your inventory is empty... Try collecting items/tools to help in the game");
+                Console.WriteLine("Your inventory is empty (Try collecting items/tools to help in the game)");
             }
             else
             {
@@ -102,5 +104,18 @@ namespace NarrativeProject
                 }
             }
         }
+        //public static void AlarmTimerDamage(int hp, game.alarmTimer)
+        //{
+        //    if (ElectricalRoom.alarmTrigerred == false)
+        //    {
+        //        Console.WriteLine("");
+        //    }
+        //    if (ElectricalRoom.alarmTrigerred == true)
+        //    {
+        //        alarmTimer
+        //        //hp -= alarmTimer.Elapsed.Seconds
+        //    }
+
+        //}
     }
 }

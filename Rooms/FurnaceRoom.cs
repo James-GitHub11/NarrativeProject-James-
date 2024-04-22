@@ -63,6 +63,7 @@ What's your next move?
                             Game.Transition<FurnaceRoom>();
                         }
                     }break;
+                
                 case "black wire":
                     {
                         if (ElectricalRoom.electricityTurnedOn == false)
@@ -72,14 +73,17 @@ What's your next move?
                         }
                         else if (ElectricalRoom.electricityTurnedOn == true)
                         {
-                            Console.WriteLine("You try plugging in the black wire, but it is the wrong wire. An electric shock hits your body, with the pain paralyzing you for a minute.\nYou get back up, in disbelief of what just happened. 'Is this homeowner rigging traps? Or just a sociopath with no concern for safety?!'");
+                            Console.WriteLine("You try the black one, but it's the wrong wire.\nAn electric shock hits your body, with the pain paralyzing you for a minute.\nYou get back up, in disbelief of what just happened. 'Is this homeowner rigging traps? Or just a sociopath with no concern for safety?!'");
                             //HP -= 10 
                             //Will implement a loss of health points here when the user chooses the black wire and get's shocked.
                             Game.Transition<FurnaceRoom>();
-                        }
-                            
-                    }
-                    break;
+                        }                 
+                    }break;
+                case "inventory":
+                    {
+                        Game.CheckInventory();
+                        Game.Transition<FurnaceRoom>();
+                    }break;     
             }
         }
     }
