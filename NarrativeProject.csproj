@@ -50,6 +50,9 @@
     <Compile Include="Rooms\AtticRoom.cs" />
     <Compile Include="Rooms\Bathroom.cs" />
     <Compile Include="Rooms\Bedroom.cs" />
+    <Compile Include="Rooms\GarageRoom.cs" />
+    <Compile Include="Rooms\Kitchen.cs" />
+    <Compile Include="Rooms\LivingRoom2.cs" />
     <Compile Include="Rooms\ElectricalRoom.cs" />
     <Compile Include="Rooms\FurnaceRoom.cs" />
     <Compile Include="Rooms\LivingRoom.cs" />

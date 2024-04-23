@@ -12,6 +12,9 @@ namespace NarrativeProject.Rooms
         //internal static bool goneDownstairs = false;
         //internal static bool electricityTurnedOn = false;
         internal static bool performedLivingRoomScan = false;
+        internal static bool isPlayerBleedingOut = false;
+        internal static bool isCheckPointAchieved = false;
+        internal static int mouseTrapInitialDamage = 100;
         internal override string CreateDescription()
         {
 //            if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true && ElectricalRoom.alarmTrigerred == false)
@@ -21,27 +24,41 @@ namespace NarrativeProject.Rooms
 //The room seems to be getting warmer now and you're no longer shivering.
 //With the cold no longer a distraction, the electricity running, and alarm turned off, you can finally focus all your efforts on escape!";
 //            }
+            if (isCheckPointAchieved == true)
+            {
+                return
+@"You walk back a bit towards to the center area of the living room.
+Doesn't seem like there's much left to do here.
 
+If you'd like to look around more, then you can explore the following rooms still:
+1) Go to [electrical room]?
+2) Go to [furnace room]?
+3) Go to [bedroom]?
+4) Inspect [notepad]?
+5) Watch the [news]?
+5) Return towards extended area of [living room] near the sliding door?";
+            }
             if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true && ElectricalRoom.alarmTrigerred == true)
             {
                 return
-@"You've succesfully fixed the furnace for now.
-The room seems to be getting warmer now and you're no longer shivering.
-However, with the alarm still going off in the house, your window for escape is getting smaller!
+@"You're in the living room. Your no longer freezing to death.
+However, if the alarm keeps going off, your window for escape will keep getting smaller!
+(Hint: find the correct circuit breaker numbers for the power, or find the switch number that controls the alarm!)
+
 What's your next move?
 1) Return to the [electrical room]?
 2) Try the [front door]?
 3) Return upstairs to the [bedroom]?
-4) ";
+4) Return to the [furnace room]?";
             }
 
             if (Bedroom.isFlashLightInventoried == true && FurnaceRoom.isFurnaceFixed == false && performedLivingRoomScan == false)
             {
                 return
 @"You're in the living room, and it's still too cold for comfort.
-You can still hear odd noises coming from the furnace room.
+The furnace room is still making odd noises.
 Being alone in this eerie old house is seriously starting to give you the creeps.
-This alarming sense of danger forces you into a panic, with every instinct in your body urging you to escape ASAP.
+The alarming sense of danger forces you to panic, with every instinct in your body urging you to escape ASAP.
 Feeling your heart pounding, you take a deep breath and think of your next course of action.
 
 What's your next move? 
@@ -83,15 +100,17 @@ What's your next move?
             {
                 return
 @"You're in the living room.
-Now that the power is on, you can finally see everything in the room.
+The power is on and you can finally see everything in the room.
 Specifically, you notice a notepad on the coffee table.
+The old TV also turns back on, playing the local news channel. 
 However, you're still shivering from the cold.
 
 What's your next move? 
 1) Head towards the [furnace room]?
 2) Return upstairs to the [bedroom]?
 3) Inspect the [notepad] seen on the coffee table.
-4) Return to [electrical room]";
+4) Watch the [news] playing on the TV?
+5) Return to [electrical room]";
             }
             //The furnace seems to be working now and you're no longer cold.
             //With the cold no longer a distraction, and your flashlight lighting the way, you notice two more doors.
@@ -116,6 +135,18 @@ What's your next move?
         {
             switch (choice)
             {
+                case "living room":
+                    {
+                        if (isCheckPointAchieved == true)
+                        {
+                            Game.Transition<LivingRoom2>();
+                        }
+                        else
+                        {
+                            Game.Transition<LivingRoom>();
+                        }
+                    }break;
+
                 case "bedroom":
                     {
                         Game.Transition<Bedroom>();
@@ -125,12 +156,15 @@ What's your next move?
                     {
                         if (performedLivingRoomScan == false)
                         {
-                            Console.WriteLine("Attempting to be careful, you fumble through the dark room taking long steps to avoid any unseen objects.\nHowever, after only making it a few steps, you feel a sudden surge of pain rushing to your feet." +
-                                "\nYou've stepped on a long nail that was sticking out of the floorboard and your foot is badly wounded.");
+                            isPlayerBleedingOut = true;
+                            Game.hp -= mouseTrapInitialDamage;
+                            mouseTrapInitialDamage = 0;
+                            Console.WriteLine("You fumble through the dark room, taking long steps to avoid any unseen objects.\nAfter only making it a few steps, you feel an intense pain rushing to your foot." +
+                                "\nYou've stepped on a long nail that was sticking out of the floorboard. Your foot is badly wounded.");
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("You're going to bleed out if you don't tend to your wounds ASAP!");
+                            Console.WriteLine("You'll bleed out if you don't tend to your wound ASAP!");
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine(" (Hint: search the house for a bandages or something to wrap your wound)");
+                            Console.WriteLine("(Hint: search the house for bandages or anything to wrap your wound)");
                             Console.ForegroundColor = ConsoleColor.White;
                             Game.Transition<LivingRoom>();
                         }
@@ -173,9 +207,16 @@ What's your next move?
 
                 case "notepad":
                     {
-                        Console.WriteLine("The notebook has a hand-drawn sketch of a roulette wheel with the number 11 circled,\nand a quote saying 'AlWAYS bet on red.");
+                        Console.WriteLine("The notebook has a hand-drawn sketch of a roulette wheel with the number 11 circled, and a quote saying 'AlWAYS bet on red'.");
+                        Console.WriteLine("'Hmm.. that's strange. If I remember correctly, #11 is a black number on the roulette wheel? Seems a bit contradictory of him?'");
                         //if notepad is selected, it will open up an image of the notepad with a graphic of a roulette table and the hint to always bet on red.
                         Game.Transition<LivingRoom>();
+                    }break;
+
+                case "news":
+                    {
+                        Console.WriteLine("As you begin listening, you hear extreme weather warnings for an incoming hurricane, urging everyone to stay inside.");
+                        //add photo of the TV playing news
                     }break;
 
                 case "scan":

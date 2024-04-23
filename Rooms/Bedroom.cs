@@ -9,6 +9,8 @@ namespace NarrativeProject.Rooms
         internal static bool flashlightAvailable = false;
         internal static bool isFlashLightInventoried = false;
         internal static bool doorReadyToOpen = false;
+        internal static bool isShirtInventoried = false;
+        internal static bool shirtUsed = false;
         //public Game game = null;
         internal override string CreateDescription()
         {
@@ -21,6 +23,19 @@ namespace NarrativeProject.Rooms
 //From the closet, you see the [attic].
 //";
 //            }
+            if (LivingRoom.isPlayerBleedingOut == true && isShirtInventoried == true && shirtUsed == false)
+            {
+                return
+@"You are in the bedroom.
+The [door] leads to the [living room].
+The private [bathroom] is to your left.
+From the closet, you see the [attic].
+
+You also can either:
+1) Put the [shirt on]?
+2) Try to [wrap] the shirt around your wound?";
+            }
+
             if (doorReadyToOpen == true && goneDownstairs == false)
             {
                 return
@@ -44,6 +59,26 @@ The private [bathroom] is to your left.
 From the closet, you see the [attic].
 Pick up the [flashlight] and add it to your inventory";
             }
+            if (LivingRoom.isPlayerBleedingOut == true && shirtUsed == true)
+            {
+                return
+@"You're in the bedroom.
+The main bedroom [door] leads to the [living room].
+The private [bathroom] is to the left of the bed.
+From the closet, you see the [attic].
+There's nothing on the bed anymore (since you took the shirt).
+(You've gained health from the warmth of the shirt, but you still need to wrap your wounds).";
+            }
+            if (LivingRoom.isPlayerBleedingOut == true && goneDownstairs == true && isFlashLightInventoried == true)
+            {
+                return
+@"You're in the bedroom.
+The main bedroom [door] leads to the [living room].
+The private [bathroom] is to the left of the bed.
+From the closet, you see the [attic].
+On the bed, there's a plain white [t-shirt]";
+            }
+
             if (goneDownstairs == true && flashlightAvailable == true && isFlashLightInventoried == true)
             {
                 return
@@ -51,7 +86,7 @@ Pick up the [flashlight] and add it to your inventory";
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
-(There are no more items to find here.)";
+(There are currently no items of use in this room).";
             }
             else
             {
@@ -150,6 +185,35 @@ From the closet, you see the [attic].
                     {
                         Console.WriteLine("You go up and enter the attic.");
                         Game.Transition<AtticRoom>();                 
+                    }break;
+
+                case "t-shirt":
+                    {
+                        Console.WriteLine("This shirt seems clean enough.");
+                        Game.AddInventory(choice);
+                        isShirtInventoried = true;
+                        Game.Transition<Bedroom>();
+                        //LivingRoom.isPlayerBleedingOut = false;
+                    }break;
+
+                case "wrap":
+                    {
+                        Console.WriteLine("You choose to wrap your wound with the shirt, and have sucessfully stopped the bleeding!");
+                        LivingRoom.isPlayerBleedingOut = false;
+                        shirtUsed = true;
+                        Game.Transition<Bedroom>();
+                    }break;
+
+                case "shirt on":
+                    {
+                        Console.Write("You choose to put the t-shirt on. You feel warmer");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.Write(" (+100HP)");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\nYou're still bleeding out, however. Keep searching for bandages!");
+                        shirtUsed = true;
+                        Game.hp += 100;
+                        Game.Transition<Bedroom>();
                     }break;
 
                 default:

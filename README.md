@@ -65,3 +65,10 @@ April 21, 2024 (Round 8):
 					--> so you'll begin losing time/health quickly from leaving the alarm on, but you'll also stop losing time/health from the cold.
 	--> if the user wants to reach the main checkpoint of the game (when it switches from exploration to escape mode), he'll need to figure out the switch that turns off the alarm.
 -Began attempts to implement the timer/hp system... still need to figure how it will fit into the game.
+
+April 22, 2024:
+-Added new stopwatch timer for when a player steps on the nail in the living room (before scanning w/ flashlight) --> called "bleedingOutTimer", which will deduct 1HP per second that you do not bandage it.
+-Added new timer for stepping on mousetrap in ElectricalRoom --> stops only when you use the med-kit
+-Most of HP system has been implemented --> all the timers seem to be working
+-Added LivingRoom2 and a checkpoint bool to help transition to the new livingroom2.
+-

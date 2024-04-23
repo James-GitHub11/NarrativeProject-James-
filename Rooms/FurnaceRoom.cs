@@ -47,7 +47,17 @@ What's your next move?
             {
                 case "living room":
                     {
-                        Game.Transition<LivingRoom>();
+                        if (ElectricalRoom.alarmTrigerred == false && ElectricalRoom.electricityTurnedOn == true && isFurnaceFixed == true)
+                        {
+                            Console.WriteLine("Checkpoint achieved!\nThe room seems to be getting warmer now and you're no longer shivering.\nWith the cold no longer a distraction, running electricity, and the alarm turned off, you can finally focus all your efforts on escape!");
+                            LivingRoom.isCheckPointAchieved = true;
+                            Game.Transition<LivingRoom2>();
+                        }
+                        else
+                        {
+                            Game.Transition<LivingRoom>();
+                        }
+                            
                     }break;
                 case "red wire":
                     {
@@ -58,7 +68,7 @@ What's your next move?
                         }
                         else if (ElectricalRoom.electricityTurnedOn == true)
                         {
-                            Console.WriteLine("You plug in the red wire and... it works! The furnace is finally on. Maybe I should check to see if it's working in the living room.");
+                            Console.WriteLine("You plug in the red wire and... it works! The furnace is finally on.");
                             isFurnaceFixed = true;
                             Game.Transition<FurnaceRoom>();
                         }
@@ -74,7 +84,7 @@ What's your next move?
                         else if (ElectricalRoom.electricityTurnedOn == true)
                         {
                             Console.WriteLine("You try the black one, but it's the wrong wire.\nAn electric shock hits your body, with the pain paralyzing you for a minute.\nYou get back up, in disbelief of what just happened. 'Is this homeowner rigging traps? Or just a sociopath with no concern for safety?!'");
-                            //HP -= 10 
+                            Game.hp -= 100;
                             //Will implement a loss of health points here when the user chooses the black wire and get's shocked.
                             Game.Transition<FurnaceRoom>();
                         }                 

@@ -15,6 +15,8 @@ namespace NarrativeProject.Rooms
         internal static int alarmBreakerNumber = 11;
         internal static int counter = 0;
         internal static int response;
+        internal static bool stuckInMouseTrap = false;
+        internal static string circuitBreakerNumbers = "4, 8, 15, 16, 23, 42";
         internal override string CreateDescription()
         {
             if (electricityTurnedOn == true && alarmTrigerred == false) //rdescription for when the player has successfully turned the power on,
@@ -38,7 +40,7 @@ What's your next move?
             if (performedElectricalRoomScan == true && electricityTurnedOn == false)
             {
                 return
-@"In the electrical room, it's dark, but you point your flashlight towards the whirring noises ahead.
+@"In the electrical room, it's dark, but you point your flashlight towards the whirring noises.
 You see a circuit breaker straight ahead, with most of the switches turned off.
 You are unsure which switch (or switches) control the main floor of the house.
 
@@ -65,10 +67,12 @@ What's your next move?
             {
                 case "living room":
                     {
-                        if (alarmTrigerred == false && electricityTurnedOn == true)
+                        if (alarmTrigerred == false && electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true)
                         {
                             Console.WriteLine("Checkpoint achieved!\nThe room seems to be getting warmer now and you're no longer shivering.\nWith the cold no longer a distraction, the electricity running, and alarm turned off, you can finally focus all your efforts on escape!");
-                            Game.Transition<LivingRoom>(); //will have to be LivingRoom2 actually once i make that room
+                            LivingRoom.isCheckPointAchieved = true;
+                            Game.hp = +100;
+                            Game.Transition<LivingRoom2>(); //will have to be LivingRoom2 actually once i make that room
                         }
                         else if (alarmTrigerred == true && electricityTurnedOn == true)
                         {
@@ -91,7 +95,14 @@ What's your next move?
                 case "explore":
                     {
                         Console.WriteLine("You take a few steps forward, then... 'OUCH!!'");
-                        Console.WriteLine("You stepped on a mouse-trap and cut your toe badly.");
+                        Console.WriteLine("You've stepped on a mouse-trap and cut your toe badly.");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("You'll bleed out if you don't tend to your wound ASAP!");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("(Hint: search the house for bandages or anything to wrap your wound)");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        stuckInMouseTrap = true;
+
                         Game.Transition<ElectricalRoom>();
                     }break;
 
@@ -140,6 +151,11 @@ What's your next move?
                     {
                         Game.CheckInventory();
                         Game.Transition<ElectricalRoom>();
+                    }break;
+
+                case "circuit breaker":
+                    {
+
                     }break;
                     
                 default:

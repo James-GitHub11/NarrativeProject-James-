@@ -11,7 +11,10 @@ namespace NarrativeProject
         Key,
         Flashlight,
         Bandages,
-        Phone
+        MedKit,
+        Shirt,
+        Remote,
+        CarKeys
     }
     internal class Game
     {
@@ -21,11 +24,11 @@ namespace NarrativeProject
         static bool isFinished;
         static string nextRoom = "";
         public static List<CollectableItems> inventory = new List<CollectableItems>();
-        public static int hp = 1000;
-        //public int n;
-        //static bool flashlightInInventory = false;
-        //static bool cloakInInventory = false;
-        //static bool phoneInInventory = false;
+        public static int hp = 1500;
+    
+        //public static int endTimerDuration = 10;
+        //public static int minutesLeftToEscape = Program.endTimerDuration - (int)Program.endGameTimer.Elapsed.TotalMinutes;
+        //public static int secondsLeftToEscape = 60 - (int)Program.endGameTimer.Elapsed.Seconds;
 
         internal void Add(Room room)
         {
@@ -84,9 +87,21 @@ namespace NarrativeProject
             {
                 inventory.Add(CollectableItems.Bandages);
             }
-            if (choice == "phone")
+            if (choice == "t-shirt")
             {
-                inventory.Add(CollectableItems.Phone);
+                inventory.Add(CollectableItems.Shirt);
+            }
+            if (choice == "med-kit")
+            {
+                inventory.Add(CollectableItems.MedKit);
+            }
+            if (choice == "remote")
+            {
+                inventory.Add(CollectableItems.Remote);
+            }
+            if (choice == "car keys")
+            {
+                inventory.Add(CollectableItems.CarKeys);
             }
         }
         public static void CheckInventory()
@@ -103,6 +118,11 @@ namespace NarrativeProject
                     Console.WriteLine($"{CollectableItems}");
                 }
             }
+        }
+
+        public static void PlayerBleedingOut()
+        {
+
         }
         //public static void AlarmTimerDamage(int hp, game.alarmTimer)
         //{
