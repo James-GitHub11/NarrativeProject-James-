@@ -17,6 +17,10 @@ namespace NarrativeProject.Rooms
         internal static int response;
         internal static bool stuckInMouseTrap = false;
         internal static string circuitBreakerNumbers = "4, 8, 15, 16, 23, 42";
+        internal static string circuitNumbersWithAlarm = "4, 8, 11, 15, 16, 23, 42";
+        internal static bool isCircuitBreakerInspected = false;
+        internal static string playerSwitchInput;
+        internal static int circuitAttemptCounter = 0;
         internal override string CreateDescription()
         {
             if (electricityTurnedOn == true && alarmTrigerred == false) //rdescription for when the player has successfully turned the power on,
@@ -37,7 +41,7 @@ What's your next move?
 2) Turn [off all] of the switches?
 3) Enter the breaker switch [#] that you want to turn off?";
             }
-            if (performedElectricalRoomScan == true && electricityTurnedOn == false)
+            if (performedElectricalRoomScan == true && electricityTurnedOn == false && isCircuitBreakerInspected == false)
             {
                 return
 @"In the electrical room, it's dark, but you point your flashlight towards the whirring noises.
@@ -49,6 +53,20 @@ What's your next move?
 2) Try flipping all the [switches]?
 3) Focus your flashlight closer in on the [circuit breaker]?";
             }
+
+            if (performedElectricalRoomScan == true && electricityTurnedOn == false && isCircuitBreakerInspected == true)
+            {
+                return
+@"In the electrical room, it's dark, but you point your flashlight towards the whirring noises.
+You see a circuit breaker straight ahead, with most of the switches turned off.
+You are unsure which switch (or switches) control the main floor of the house.
+
+What's your next move?
+1) Return to the [living room]?
+2) Try flipping all the [switches]?
+3) Enter the [numbers] that control the main power?";
+            }
+
             else
             {
                 return
@@ -58,7 +76,7 @@ Scared of what's in there, yet also curious, you ponder for a moment before acti
 What's your next move?
 1) Return to the [living room]?
 2) Continue forward to [explore] the whirring noises?
-3) Use your flashlight to [scan] the room?"; ;
+3) Use your flashlight to [scan] the room?"; 
             }
         }
         internal override void ReceiveChoice(string choice)
@@ -83,6 +101,34 @@ What's your next move?
                             Game.Transition<LivingRoom>();
                         }
                     }break;
+                case "numbers":
+                    {
+                        Console.WriteLine("Please enter the correct sequence of numbers (separated by a comma) for the power switches (careful, one of the switches turns on the alarm system!)");
+                        playerSwitchInput = Console.ReadLine();
+                        if (playerSwitchInput == circuitBreakerNumbers)
+                        {
+                            Console.WriteLine("I think these switches did the trick!' You succesfully turn the power on, without triggering the alarm.");
+                            electricityTurnedOn = true;
+                            alarmTrigerred = false;
+                        }
+                        if (playerSwitchInput == circuitNumbersWithAlarm)
+                        {
+                            Console.WriteLine("You flip all the switches. Finally the power is running all throughout the house.\nHowever... the house-alarm is immediately triggered, blaring as loud as ever.");
+                            alarmTrigerred = true;
+                            electricityTurnedOn = true;
+                            Game.Transition<ElectricalRoom>();
+                        }
+                        else if (circuitBreakerNumbers != playerSwitchInput)
+                        {
+                            Console.WriteLine("These switches did NOT work! (make sure to turn them on in the right order)");
+                            circuitAttemptCounter++;
+                            if (circuitAttemptCounter >= 1)
+                            {
+                                Console.WriteLine("Hint: There are only 6 switches/numbers that need to be turned on (in the correct order). ");
+                            }
+                        }
+                        break;
+                    }
 
                 case "scan":
                     {
@@ -130,6 +176,7 @@ What's your next move?
                             {
                                 Console.WriteLine("'I think this switch did the trick!' The alarm has finally stopped.");
                                 alarmTrigerred = false;
+                                electricityTurnedOn = true;
                             }
                             else
                             {
@@ -155,7 +202,8 @@ What's your next move?
 
                 case "circuit breaker":
                     {
-
+                        Console.WriteLine("You look closely and notice the following switches are currently turned off: 4, 8, 11, 15, 16, 23, 42");
+                        Game.Transition<ElectricalRoom>();
                     }break;
                     
                 default:

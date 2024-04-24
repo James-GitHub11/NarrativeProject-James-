@@ -11,16 +11,7 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription()
         {
-            if (LivingRoom.isPlayerBleedingOut == true || ElectricalRoom.stuckInMouseTrap == true && isCabinetOpened == false)
-            {
-                return
-@"In the bathroom, the [bath] is filled with hot water.
-The [mirror] in front of you reflects your fatigued and slightly bruised face.
-As you glance in the mirror, you notice this time around that there's an unlocked [cabinet] behind it.
-You can also return to the [bedroom].
-";
-            }
-            if (LivingRoom.isPlayerBleedingOut == true || ElectricalRoom.stuckInMouseTrap == true && isCabinetOpened == true)
+            if (isCabinetOpened == true)
             {
                 return
 @"In the bathroom, the [bath] is filled with hot water.
@@ -31,8 +22,30 @@ What's your move?
 1) Inspect the [pills]?
 2) Take the [med-kit]?
 3) Take a [bath]?
+4) Return to [bedroom]?";
+            }
+            if (LivingRoom.isPlayerBleedingOut == true || ElectricalRoom.stuckInMouseTrap == true && isCabinetOpened == false)
+            {
+                return
+@"In the bathroom, the [bath] is filled with hot water.
+The [mirror] in front of you reflects your fatigued and slightly bruised face.
+As you glance in the mirror, you notice this time around that there's an unlocked [cabinet] behind it.
+You can also return to the [bedroom].
 ";
             }
+//            if (LivingRoom.isPlayerBleedingOut == true && isCabinetOpened == true || ElectricalRoom.stuckInMouseTrap == true && isCabinetOpened == true)
+//            {
+//                return
+//@"In the bathroom, the [bath] is filled with hot water.
+//The [mirror] is opened and you can see what's inside the [cabinet].
+//You can also return to the [bedroom].
+
+//What's your move?
+//1) Inspect the [pills]?
+//2) Take the [med-kit]?
+//3) Take a [bath]?
+//";
+//            }
             else
             {
                 return
@@ -51,9 +64,10 @@ You can return to the [bedroom].
             {
                 case "bath":
                     {
+                        //if (isCabinetOpened)
                         if (HealthGainedInBath > 0)
                         {
-                            Console.WriteLine("You relax in the bath, and regain a bit of your energy.");
+                            Console.WriteLine($"You relax in the bath, and regain a bit of your energy. (+{HealthGainedInBath}HP)");
                             Game.hp += HealthGainedInBath;
                             HealthGainedInBath -= 25; //each time the bath is used, you'll gain 25 less HP per use. (1st use = 100HP, 2nd = 75HP...)
                         }
@@ -104,6 +118,7 @@ You can return to the [bedroom].
                         Console.WriteLine("'If I remember these names correctly from my pharmacology class.. Olanzapine is used to treat schizophrenia...");
                         Console.WriteLine("'Well, that could potentially explain the home-owner's erratic behavior and lack of proper home maintenance...'");
                         Console.WriteLine("'Wait... ROHYPNOL??? Are these roofies?!? Hell no... I GOTTA OUTTA HERE!");
+                        isCabinetOpened = false;
                         Game.Transition<Bathroom>();
                     }break;
 
@@ -122,10 +137,11 @@ You can return to the [bedroom].
                         }
                         if (ElectricalRoom.stuckInMouseTrap == false && LivingRoom.isPlayerBleedingOut == true)
                         {
-                            Console.WriteLine("You open the med-kit, using the bandages and isopropyl alcohol to bandage and disinfect your wounded foot.");
+                            Console.WriteLine("You open the med-kit, using it to disinfect and wrap your wounded foot.");
                             LivingRoom.isPlayerBleedingOut = false;
                         }
                         Game.AddInventory(choice);
+                        isCabinetOpened = false;
                         Game.Transition<Bathroom>();
                         //ElectricalRoom.stuckInMouseTrap = false;
                     }break;

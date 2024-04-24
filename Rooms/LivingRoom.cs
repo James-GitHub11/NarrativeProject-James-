@@ -41,9 +41,10 @@ If you'd like to look around more, then you can explore the following rooms stil
             if (ElectricalRoom.electricityTurnedOn == true && FurnaceRoom.isFurnaceFixed == true && ElectricalRoom.alarmTrigerred == true)
             {
                 return
-@"You're in the living room. Your no longer freezing to death.
+@"You're in the living room. 
+You're no longer freezing to death, but that alarm sound is worsennig your headache, making it hard to think.
 However, if the alarm keeps going off, your window for escape will keep getting smaller!
-(Hint: find the correct circuit breaker numbers for the power, or find the switch number that controls the alarm!)
+(Hint: find the correct circuit breaker #'s for the power switches, or find which switch # that controls the alarm!)
 
 What's your next move?
 1) Return to the [electrical room]?
@@ -70,7 +71,7 @@ What's your next move?
             if (ElectricalRoom.performedElectricalRoomScan == false && FurnaceRoom.isFurnaceFixed == false && performedLivingRoomScan == true)
             {
                 return
-@"You're in the living room, still freezing cold and trembling with angst and fear.
+@"You're in the living room, shivering from the cold and your fear, you're physical and mental health are in decline.
 Down another small hallway, you can see what appears to be the front door of the house.
 Your flashlight reveals 2 doorways.. the one leading the furnace room, and a mystery door next to it.
 

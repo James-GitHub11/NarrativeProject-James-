@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Story.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Rooms\ElectricalRoom.cs" />
     <Compile Include="Rooms\FurnaceRoom.cs" />
     <Compile Include="Rooms\LivingRoom.cs" />
+    <Compile Include="StoryContext1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

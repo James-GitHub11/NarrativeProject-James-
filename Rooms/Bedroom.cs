@@ -54,6 +54,7 @@ Maybe you should [search] around for tools, you might find a useful item!";
             {
                 return
 @"You're in the bedroom.
+
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -63,6 +64,7 @@ Pick up the [flashlight] and add it to your inventory";
             {
                 return
 @"You're in the bedroom.
+
 The main bedroom [door] leads to the [living room].
 The private [bathroom] is to the left of the bed.
 From the closet, you see the [attic].
@@ -73,6 +75,8 @@ There's nothing on the bed anymore (since you took the shirt).
             {
                 return
 @"You're in the bedroom.
+
+There's essentially no decor, aside from a [poster] of an early 2000's show my parents used to watch.
 The main bedroom [door] leads to the [living room].
 The private [bathroom] is to the left of the bed.
 From the closet, you see the [attic].
@@ -83,6 +87,8 @@ On the bed, there's a plain white [t-shirt]";
             {
                 return
 @"You're in the bedroom.
+
+There's essentially no decor, aside from a [poster] of an early 2000's show my parents used to watch.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -92,6 +98,8 @@ From the closet, you see the [attic].
             {
                     return
 @"You are in the bedroom.
+
+There's essentially no decor, aside from some [poster] of an early 2000's show my parents used to watch.
 The [door] in front of you leads to the [living room].
 The private [bathroom] is to your left.
 From the closet, you see the [attic].
@@ -103,6 +111,15 @@ From the closet, you see the [attic].
         {
             switch (choice)
             {
+                case "poster":
+                    {
+                        Console.WriteLine("You walk towards the poster. It's from some old show called 'Lost.'");
+                        Console.WriteLine("When you get closer, you see the following numbers written on it:");
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("|4, 8, 15, 16, 23, 42|");
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }break;
+
                 case "bathroom":
                     Console.WriteLine("You enter the bathroom.");
                     Game.Transition<Bathroom>();

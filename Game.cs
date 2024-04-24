@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace NarrativeProject
 {
@@ -19,13 +20,18 @@ namespace NarrativeProject
     internal class Game
     {
         List<Room> rooms = new List<Room>();
-        Room currentRoom;
+        public static Room currentRoom;
         internal bool IsGameOver() => isFinished;
         static bool isFinished;
         static string nextRoom = "";
         public static List<CollectableItems> inventory = new List<CollectableItems>();
-        public static int hp = 1500;
-    
+        public static int hp = 100;
+        public static string storyChoice;
+        public static string playerCurrentRoom;
+
+        public static int savedHP;
+        public static string savedName;
+        public static string savedRoom;
         //public static int endTimerDuration = 10;
         //public static int minutesLeftToEscape = Program.endTimerDuration - (int)Program.endGameTimer.Elapsed.TotalMinutes;
         //public static int secondsLeftToEscape = 60 - (int)Program.endGameTimer.Elapsed.Seconds;
@@ -57,7 +63,7 @@ namespace NarrativeProject
             isFinished = true;
         }
 
-        internal void CheckTransition()
+        public void CheckTransition()
         {
             foreach (var room in rooms)
             {
@@ -112,14 +118,21 @@ namespace NarrativeProject
             }
             else
             {
+                Console.WriteLine("Here is your current item inventory: ");
                 foreach (var CollectableItems in inventory)
                 {
-                    Console.Write("Here is your current item inventory: ");
+                    
                     Console.WriteLine($"{CollectableItems}");
                 }
             }
         }
 
+        public static string GetStoryChoice()
+        {
+            Console.Write("Please enter the number 1 or 2, before starting the game: ");
+            storyChoice = Console.ReadLine();
+            return storyChoice;
+        }
         public static void PlayerBleedingOut()
         {
 

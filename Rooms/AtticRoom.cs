@@ -14,6 +14,7 @@ namespace NarrativeProject.Rooms
                 return
 @"In the attic, it's dark and cold.
 There's an open chest on the floor with a key inside.
+
 What's your move?
 1) Take the [key]?
 2) Return to the [bedroom]?";
@@ -24,6 +25,7 @@ What's your move?
 @"You're standing in the old dusty attic.
 The open chest lays empty on the ground.
 You look around one more time, but there doesn't seem to be anything else of use here.
+
 Next move:
 1) Return to the [bedroom]";
             }
@@ -31,7 +33,7 @@ Next move:
             {
                 return
 @"In the attic, it's dark and cold.
-A chest is locked with the code [????].
+A chest is locked with a 4-digit code [????].
 You can return to the [bedroom].
 ";
             }
