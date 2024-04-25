@@ -113,7 +113,7 @@ From the closet, you see the [attic].
             {
                 case "poster":
                     {
-                        Console.WriteLine("You walk towards the poster. It's from some old show called 'Lost.'");
+                        Console.WriteLine("You walk towards the poster. It's from some old show called 'Lost'.");
                         Console.WriteLine("When you get closer, you see the following numbers written on it:");
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("|4, 8, 15, 16, 23, 42|");
@@ -235,7 +235,15 @@ From the closet, you see the [attic].
 
                 default:
                     {
-                        Console.WriteLine("Invalid command.");
+                        //if (choice == "exit")
+                        //{
+
+                        //}
+                        //else
+                        //{
+                            Console.WriteLine("Invalid command.");
+                        //}
+                        
                     }break;     
             }
         }

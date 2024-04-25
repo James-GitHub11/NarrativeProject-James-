@@ -83,7 +83,7 @@ You can return to the [bedroom].
                     {
                         if (counter >= 1)
                         {
-                            Console.WriteLine("The fog from the bath reveals the numbers '6969', written on the mirror with greasy fingerprints.");
+                            Console.WriteLine($"The fog from the bath reveals the numbers '{Game.chestCode}', written on the mirror with greasy fingerprints.");
                         }
                         else
                         {

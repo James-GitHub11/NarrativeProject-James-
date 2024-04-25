@@ -6,7 +6,7 @@ namespace NarrativeProject.Rooms
     {
         internal static bool isKeyCollected = false;
         internal static bool isKeyDiscovered = false;
-
+        internal static int codeInput;
         internal override string CreateDescription()
         {
             if (isKeyDiscovered == true && isKeyCollected == false)
@@ -33,7 +33,7 @@ Next move:
             {
                 return
 @"In the attic, it's dark and cold.
-A chest is locked with a 4-digit code [????].
+A [chest] is locked with a 4-digit code [????].
 You can return to the [bedroom].
 ";
             }
@@ -47,11 +47,23 @@ You can return to the [bedroom].
                     Console.WriteLine("You return to the bedroom.");
                     Game.Transition<Bedroom>();
                     break;
-                case "6969":
-                    Console.WriteLine("The chest opens, revealing a mysterious key.");
-                    Game.Transition<AtticRoom>();
-                    isKeyDiscovered = true;
-                    break;
+                case "chest":
+                    {
+                        Console.Write("There's a lockpad with a 4-digit combination, enter the code: ");
+                        codeInput = Convert.ToInt32(Console.ReadLine());
+                        if (codeInput == Game.chestCode)
+                        {
+                            Console.WriteLine("The chest opens, revealing a mysterious key.");
+                            isKeyDiscovered = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong code.");
+                        }
+                        Game.Transition<AtticRoom>();
+                        
+                    }break;
+                    
                 case "key":
                     {
                         Game.AddInventory(choice);

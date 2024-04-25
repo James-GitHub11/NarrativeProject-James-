@@ -19,15 +19,16 @@ namespace NarrativeProject
     }
     internal class Game
     {
-        List<Room> rooms = new List<Room>();
+        public static List<Room> rooms = new List<Room>();
         public static Room currentRoom;
         internal bool IsGameOver() => isFinished;
         static bool isFinished;
         static string nextRoom = "";
         public static List<CollectableItems> inventory = new List<CollectableItems>();
-        public static int hp = 100;
+        public static int hp = 1000;
         public static string storyChoice;
-        public static string playerCurrentRoom;
+        //public static string playerCurrentRoom;
+        public static int chestCode;
 
         public static int savedHP;
         public static string savedName;
@@ -127,16 +128,20 @@ namespace NarrativeProject
             }
         }
 
+        public static int RandomizeChestCode()
+        {
+            Random rand = new Random();
+            chestCode = rand.Next(1000, 10000);
+            return chestCode;
+        }
+
         public static string GetStoryChoice()
         {
             Console.Write("Please enter the number 1 or 2, before starting the game: ");
             storyChoice = Console.ReadLine();
             return storyChoice;
         }
-        public static void PlayerBleedingOut()
-        {
-
-        }
+        
         //public static void AlarmTimerDamage(int hp, game.alarmTimer)
         //{
         //    if (ElectricalRoom.alarmTrigerred == false)

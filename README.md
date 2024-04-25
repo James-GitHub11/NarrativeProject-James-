@@ -72,3 +72,8 @@ April 22, 2024:
 -Most of HP system has been implemented --> all the timers seem to be working
 -Added LivingRoom2 and a checkpoint bool to help transition to the new livingroom2.
 -
+
+April 24:
+Tried repeatedly to implement the save system, but it would not work. 
+-It will display the relevent information such as: player name, player room, and playerHP
+-However, the load system won't work properly. 

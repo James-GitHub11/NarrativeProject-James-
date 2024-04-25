@@ -22,6 +22,17 @@ What's your next move?
 2) Click the button on the unknown [remote]?
 3) Try to [drive] straight through the garage door?";
             }
+
+            if (Kitchen.isGarageRemoteInventoried == false && isPlayerInCar == true)
+            {
+                return
+@"You're sitting in the car, inside the garage.
+
+What's your next move?
+1) Get [out] of the car?
+2) Try to [drive] straight through the garage door?";
+            }
+
             if (Kitchen.isGarageRemoteInventoried == true)
             {
                 return
@@ -88,7 +99,7 @@ What's your next move?
 
                 case "out":
                     {
-                        Console.WriteLine("You exit the vehicle in the garage.");
+                        Console.WriteLine("You step out of the vehicle, into the garage.");
                         isPlayerInCar = false;
                         Game.Transition<GarageRoom>();
                     }break;
