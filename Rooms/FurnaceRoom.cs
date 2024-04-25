@@ -12,6 +12,7 @@ namespace NarrativeProject.Rooms
                 return
 @"In the furnace room, there are lots of machinery and wiring all over.
 You notice two wires, a [black wire] and a [red wire], that are both disconnected from the furnace.
+
 What's your next move?
 1) Return back to the [living room]?
 2) Try plugging the [black wire] into the furnace?
@@ -31,10 +32,12 @@ Return to the [living room].";
                 return
 @"You're in the furnace room. There's a loud dripping noise. The furnace seems to be broken.
 You barely spot two hanging wires, a [black wire] and a [red wire], that are both disconnected from the furnace.
+
 What's your next move?
 1) Return back to the [living room]?
 2) Try plugging the [black wire] into the furnace?
-3) Try plugging the [red wire] into the furnace?";
+3) Try plugging the [red wire] into the furnace?
+4) Try plugging the [green wire] into the furnace?";
             }
         }
         
@@ -89,6 +92,23 @@ What's your next move?
                             Game.Transition<FurnaceRoom>();
                         }                 
                     }break;
+
+                case "green wire":
+                    {
+                        if (ElectricalRoom.electricityTurnedOn == false)
+                        {
+                            Console.WriteLine("'Darn. I forgot the power is out on this floor. This won't work!'");
+                            Game.Transition<FurnaceRoom>();
+                        }
+                        else if (ElectricalRoom.electricityTurnedOn == true)
+                        {
+                            Console.WriteLine("You try the green one, but it's the wrong wire.\nAn electric shock hits your body, with the pain paralyzing you for a minute.\nYou get back up, in disbelief of what just happened. 'Is this homeowner rigging traps? Or just a sociopath with no concern for safety?!'");
+                            Game.hp -= 100;
+                            //Will implement a loss of health points here when the user chooses the black wire and get's shocked.
+                            Game.Transition<FurnaceRoom>();
+                        }
+                    }
+                    break;
                 case "inventory":
                     {
                         Game.CheckInventory();

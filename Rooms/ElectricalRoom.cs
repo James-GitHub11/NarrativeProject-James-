@@ -148,7 +148,7 @@ What's your next move?
                         Console.WriteLine("(Hint: search the house for bandages or anything to wrap your wound)");
                         Console.ForegroundColor = ConsoleColor.White;
                         stuckInMouseTrap = true;
-
+                        Game.hp -= 50;
                         Game.Transition<ElectricalRoom>();
                     }break;
 
